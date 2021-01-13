@@ -96,8 +96,40 @@ Demo
 
 #### High-level data types
 
-  - Numbers, Strings (immutable)
-  - Lists, Dictionaries and Tuples
+  - Numbers
+  - Strings
+  - Lists
+  - Dictionaries
+  - Tuples
+
+---
+
+#### Numbers
+
+```python
+>>> 2 + 2
+4
+>>> 50 - 5*6
+20
+>>> (50 - 5*6) / 4
+5.0
+>>> 8 / 5  # division always returns a floating point number
+1.6
+```
+
+
+
+```python
+>>> 17 / 3  # classic division returns a float
+5.666666666666667
+>>>
+>>> 17 // 3  # floor division discards the fractional part
+5
+>>> 17 % 3  # the % operator returns the remainder of the division
+2
+>>> 5 * 3 + 2  # result * divisor + remainder
+17
+```
 
 ---
 
@@ -120,9 +152,23 @@ Demo
 | --- | --- |
 | `"hello" < "jello"` | `True` |
 | `"e" in "hello"` | `True` |
+| `"x" not in "hello"` | `True` |
 | `"python"` | `'python'` |
 | `'python'` | `'python'` |
 | `r'python'` | `'python'` |
+
+
+
+#### Moore Strings
+
+| code | output |
+| --- | --- |
+| `"python".upper()` | `PYTHON` |
+| `"python".capitalize()` | `Python` |
+| `"PYTHON".lower()` | `python` |
+| `"hello".count("l")` | `2` |
+| `"hello".find("l")` | `2` |
+|`"hello".index("el")` | `1` |
 
 ---
 
@@ -162,15 +208,32 @@ del a[-1]	# [98, "bottles", "of", "beer"]
 More List Operations
 
 ```python
->>> a = range(5)    # [0,1,2,3,4]
->>> a.append(5)     # [0,1,2,3,4,5]
->>> a.pop()         # [0,1,2,3,4]
+>>> a = list(range(5))  # [0, 1, 2, 3, 4]
+>>> a.append(5)         # [0, 1, 2, 3, 4, 5]
+>>> a.pop()             # [0, 1, 2, 3, 4]
 5
->>> a.insert(0, 42) # [42,0,1,2,3,4]
->>> a.pop(0)        # [0,1,2,3,4]
-5.5
->>> a.reverse()     # [4,3,2,1,0]
->>> a.sort()        # [0,1,2,3,4]
+>>> a.insert(0, 42)     # [42, 0, 1, 2, 3, 4]
+>>> a.pop(0)            # [0, 1, 2, 3, 4]
+42
+>>> a.reverse()         # [4, 3, 2, 1, 0]
+>>> a.sort()            # [0, 1, 2, 3, 4]
+```
+
+
+
+More List Operations
+
+```python
+>>> a
+[0, 1, 2, 3, 4]
+>>> min(a)
+0
+>>> max(a)
+4
+>>> sum(a)
+10
+>>> a.count(2)
+1
 ```
 
 ---
@@ -180,22 +243,22 @@ More List Operations
 Hash tables, "associative arrays"
 
 ```python
-d = {"duck": "eend", "water": "water"}
+d = {"make": "Honda", "model": "CR-V"}
 ```
 
 Lookup:
 
 ```python
-d["duck"] # "eend"
-d["back"] # raises KeyError exception
+d["make"] # "Honda"
+d["brand"] # raises KeyError exception
 ```
 
 Delete, insert, overwrite:
 
 ```python
-del d["water"]      # {"duck": "eend", "back": "rug"}
-d["back"] = "rug"   # {"duck": "eend", "back": "rug"}
-d["duck"] = "duik"  # {"duck": "duik", "back": "rug"}
+del d["model"]      # {"make": "Honda"}
+d["make"] = "Toyota"   # {"make": "Toyota"}
+d["model"] = "Corolla"  # {"make": "Toyota", "model": "Corolla"}
 ```
 
 
@@ -205,16 +268,16 @@ d["duck"] = "duik"  # {"duck": "duik", "back": "rug"}
 Keys, values, items:
 
 ```python
-d.keys()   # ["duck", "back"]
-d.values() # ["duik", "rug"]
-d.items()  # dict_items([('duck', 'duik'), ('back', 'rug')])
+d.keys()   # dict_keys(['make', 'model'])
+d.values() # dict_values(['Toyota', 'Corolla'])
+d.items()  # dict_items([('make', 'Honda'), ('model', 'Corolla')])
 ```
 
 Presence check:
 
 ```python
-"duck" in d # True
-"spam" in d # False
+"Toyota" in d      # True
+"Honda" not in d  # True
 ```
 
 Values of any type; keys almost any
@@ -257,7 +320,7 @@ tuples vs. lists; tuples immutable
 
 ---
 
-#### Control Structures
+#### Control Structures - If
 
 ```python
 if condition:
@@ -268,17 +331,47 @@ else:
   statements
 ```
 
+```python
+x = int(input("Please enter an integer: "))
+
+if x < 0:
+    x = 0
+    print('Negative changed to zero')
+elif x == 0:
+    print('Zero')
+elif x == 1:
+    print('Single')
+else:
+    print('More')
+```
+
+
+
+#### Control Strucures - For
+
+```python
+for var in sequence:
+    statements
+```
+
+```python
+# Measure some strings:
+words = ['cat', 'window', 'defenestrate']
+for w in words:
+    print(w, len(w))
+
+# prints as below
+# cat 3
+# window 6
+# defenestrate 12
+```
+
 
 
 #### Control Structures
 
 ```python
 while condition:
-    statements
-```
-
-```python
-for var in sequence:
     statements
 ```
 
@@ -337,6 +430,7 @@ for item in (1, 2, 3): # over a tuple
 ```python
 def name(arg1, arg2):
     """documentation""" # optional doc string
+
     statements
     return expression
 ```
@@ -348,6 +442,7 @@ def name(arg1, arg2):
 ```python
 def gcd(a, b):
     """greatest common divisor"""
+
     while a != 0:
         a, b = b%a, a    # parallel assignment
     return b
@@ -358,6 +453,35 @@ def gcd(a, b):
 4
 ```
 
+
+
+#### Function with default arg
+
+```python
+def say_hello(name="there"):
+    """prints hello with a given or a default name"""
+
+    print(f"Hello, {name}!")
+
+say_hello()         # Hello, there!
+say_hello("San")    # Hello, San!
+```
+
+
+
+#### Function with keyword args
+
+```python
+def average(total, count):
+    """returns average by dividing total by count"""
+
+    return total/count
+
+average(5, 2) # 2.5
+average(total=5, count=2) # 2.5
+average(count=2, total=5) # 2.5
+```
+
 ---
 
 #### Classes
@@ -365,6 +489,7 @@ def gcd(a, b):
 ```python
 class name:
     """documentation"""
+
     statements
 ```
 or
@@ -411,20 +536,20 @@ To create an instance, simply call the class object:
 x = Stack()	# no 'new' operator!
 ```
 
-To use methods of the instance, call using dot notation:
+To use methods, use dot notation:
 
 ```python
-x.empty()	# -> True
-x.push(1)	# [1]
-x.empty()	# -> False
+x.empty()   # -> True
+x.push(1)   # [1]
+x.empty()   # -> False
 x.push("hello")   # [1, "hello"]
-x.pop()		# -> "hello"	# [1]
+x.pop()     # -> "hello"	# [1]
 ```
 
 To inspect instance variables, use dot notation:
 
 ```python
-x.items		# -> [1]
+x.items     # -> [1]
 ```
 
 
@@ -607,6 +732,7 @@ with open('file.txt') as f:
 
 ### Beyond Basics 🎟️
 
+  - Third Party Packages (`pip`, `PyPI`)
   - Comprehensions
   - Iterators
   - Generators
@@ -624,7 +750,6 @@ Questions?
 #### Resources 🔖
 
   - [Official Docs](https://docs.python.org/3/)
-  - [Official Tutorial](https://docs.python.org/3/tutorial/)
   - [Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide)
   - [Hitchhiker's Guide](https://docs.python-guide.org/)
   - [Dev Guide](https://devguide.python.org/)
@@ -637,6 +762,8 @@ Questions?
   - Guido's Presentations
     - [Intro to Python](https://legacy.python.org/doc/essays/ppt/lwnyc2002/intro22.ppt)
     - [Python](https://legacy.python.org/doc/essays/ppt/fannie/fannie.ppt)
+  - [Official Tutorial](https://docs.python.org/3/tutorial/)
+  - [Essential Python for DS](https://towardsdatascience.com/essential-python-every-data-scientist-should-know-in-2021-65e571c20d19)
 
 ---
 
