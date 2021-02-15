@@ -74,7 +74,7 @@ By Raymond Hettinger ([@raymondh](https://twitter.com/raymondh))
 
 - interactive "shell"
 - basic types: numbers, strings
-- container types: lists, dictionaries, tuples
+- container types: lists, tuples, sets, dictionaries
 - variables
 - control structures
 - functions
@@ -94,13 +94,31 @@ Demo
 
 ---
 
+#### Variables
+
+```python
+msg = "hello"
+print(msg)
+```
+
+A bit advanced
+
+```python
+# with type hinting
+msg: str = "hello"
+print(msg)
+```
+
+---
+
 #### High-level data types
 
   - Numbers
   - Strings
   - Lists
-  - Dictionaries
   - Tuples
+  - Sets
+  - Dictionaries
 
 ---
 
@@ -238,6 +256,95 @@ More List Operations
 
 ---
 
+#### Tuples
+
+```python
+key = (lastname, firstname)
+point = x, y, z   # parentheses optional
+x, y, z = point   # unpack
+lastname = key[0]
+singleton = (1,)  # trailing comma!!!
+empty = ()        # parentheses!
+```
+
+
+
+#### More Tuples
+
+```python
+>>> t = 12345, 54321, 'hello!'
+>>> t[0]
+12345
+>>> t
+(12345, 54321, 'hello!')
+>>> # Tuples may be nested:
+... u = t, (1, 2, 3, 4, 5)
+>>> u
+((12345, 54321, 'hello!'), (1, 2, 3, 4, 5))
+```
+
+
+
+#### Tubles are Immutable
+
+```python
+>>> # Tuples are immutable:
+... t[0] = 88888
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+>>> # but they can contain mutable objects:
+... v = ([1, 2, 3], [3, 2, 1])
+>>> v
+([1, 2, 3], [3, 2, 1])
+```
+
+---
+
+#### Sets
+
+Unique Values
+
+```python
+files = {'py', 'java', 'c', 'py', 'sh', 'java'}
+print(files) # {'sh', 'c', 'java', 'py'}
+```
+
+Faster Membership Testing
+
+```python
+'py' in files # True
+'go' in files # False
+```
+
+Use `set()` to create sets
+
+```python
+a = set('abracadabra')  # {'d', 'c', 'r', 'a', 'b'}
+b = set('alacazam')     # {'c', 'z', 'l', 'a', 'm'}
+```
+
+
+
+#### More Set operations
+
+```python
+>>> a = set('abracadabra')
+>>> b = set('alacazam')
+>>> a                       # unique letters in a
+{'a', 'r', 'b', 'c', 'd'}
+>>> a - b                   # letters in a but not in b
+{'r', 'd', 'b'}
+>>> a | b                   # letters in a or b or both
+{'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}
+>>> a & b                   # letters in both a and b
+{'a', 'c'}
+>>> a ^ b                   # letters in a or b but not both
+{'r', 'd', 'b', 'm', 'z', 'l'}
+```
+
+---
+
 #### Dictionaries
 
 Hash tables, "associative arrays"
@@ -303,20 +410,6 @@ Values of any type; keys almost any
     - not lists or other dictionaries
       -these types of objects can be changed "in place"
     - no restrictions on values
-
----
-
-#### Tuples
-
-```python
-key = (lastname, firstname)
-point = x, y, z   # parentheses optional
-x, y, z = point   # unpack
-lastname = key[0]
-singleton = (1,)  # trailing comma!!!
-empty = ()        # parentheses!
-```
-tuples vs. lists; tuples immutable
 
 ---
 
@@ -451,6 +544,19 @@ def gcd(a, b):
 'greatest common divisor'
 >>> gcd(12, 20)
 4
+```
+
+
+
+#### Function with Type Hints
+
+```python
+def gcd(a: int, b: int) -> int:
+    """greatest common divisor"""
+
+    while a != 0:
+        a, b = b%a, a    # parallel assignment
+    return b
 ```
 
 
