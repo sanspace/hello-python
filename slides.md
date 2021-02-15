@@ -285,7 +285,7 @@ empty = ()        # parentheses!
 
 
 
-#### Tubles are Immutable
+#### Tuples are Immutable
 
 ```python
 >>> # Tuples are immutable:
@@ -383,8 +383,9 @@ d.items()  # dict_items([('make', 'Honda'), ('model', 'Corolla')])
 Presence check:
 
 ```python
-"Toyota" in d      # True
-"Honda" not in d  # True
+"make" in d       # True
+"brand" in d      # False
+"brand" not in d  # True
 ```
 
 Values of any type; keys almost any
